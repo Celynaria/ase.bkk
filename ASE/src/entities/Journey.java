@@ -107,8 +107,8 @@ public class Journey implements Comparable<Journey>{
 				line = line.trim();
 				String[] columns = line.split(",");
 				registrationID = columns[0];
-				Date journeyDate = format.parse(columns[2]);
-				Journey journey = new Journey(taxies.get(registrationID), destinations.get(columns[1]),journeyDate, new Integer(columns[3]).intValue());
+				Date journeyDate = format.parse(columns[3]);
+				Journey journey = new Journey(taxies.get(registrationID), destinations.get(columns[1]),journeyDate, new Integer(columns[2]).intValue());
 				journey.feeCalculation();
 				journeys.add(journey);
 			}
