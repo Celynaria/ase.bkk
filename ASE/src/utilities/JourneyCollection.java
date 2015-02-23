@@ -23,7 +23,7 @@ import entities.Taxi;
 /**
  * 
  * @author Wonchana
- * @author thanaphong
+ * @author thanaphong Sontayasara
  *
  */
 public class JourneyCollection {
