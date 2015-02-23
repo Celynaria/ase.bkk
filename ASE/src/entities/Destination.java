@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * Destination class.
  * @author Wanchana
  * 
  */
