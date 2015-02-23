@@ -2,6 +2,11 @@ package utilities;
 
 public class feeCalculationException extends Exception{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public feeCalculationException() {
 		super();
 		// TODO Auto-generated constructor stub
