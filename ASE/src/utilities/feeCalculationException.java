@@ -1,10 +1,12 @@
 package utilities;
 
+/**
+ * Custom Exception for fee calculation method inside Journey class.
+ * @author Wanchana
+ *
+ */
 public class feeCalculationException extends Exception{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public feeCalculationException() {
