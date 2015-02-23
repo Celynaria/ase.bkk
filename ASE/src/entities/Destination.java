@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Destination class.
+ * Class destination that takes destination name
+ * and distance in km.
  * @author Wanchana
  * 
  */
