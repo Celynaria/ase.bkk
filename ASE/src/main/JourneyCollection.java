@@ -23,7 +23,7 @@ import entities.Taxi;
 /**
  * This is the main class that load and hold all data from text file into Java data structure and contained.
  * methods to print out 3 reports into text files.
- * @author thanaphong Sontayasara
+ * @author Wanchana, Thanaphong
  *
  */
 public class JourneyCollection {
