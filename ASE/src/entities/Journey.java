@@ -118,6 +118,7 @@ public class Journey implements Comparable<Journey>{
 		String fileName = "C:\\journey.txt";
 		String line = new String();
 		String registrationID = new String();
+		String destinationName = new String();
 		List<Journey> journeys = new ArrayList<Journey>();
 		int failed = 0;
 		try{
@@ -127,17 +128,18 @@ public class Journey implements Comparable<Journey>{
 				String[] columns = line.split(",");
 				Journey journey;
 				try {
-					registrationID = columns[0];
+					registrationID = columns[0].trim();
+					destinationName = columns[1].trim();
 					Taxi.registrationIDChecker(registrationID);
 					Taxi taxi = taxies.get(registrationID);
-					Destination destination = destinations.get(columns[1]);
+					Destination destination = destinations.get(destinationName);
 					if(taxi != null){
 						if(destination!=null){
 							journey = new Journey(taxi,destination ,columns[3], new Integer(columns[2]).intValue());
 							journey.feeCalculation();
 							journeys.add(journey);
 						}else{
-							throw new DestinationNotFoundException(registrationID);
+							throw new DestinationNotFoundException(destinationName);
 						}
 					}else{
 						throw new RegistrationIDNotFoundException(registrationID);
