@@ -50,9 +50,9 @@ public class JourneyCollection {
 		boolean valid = true;
 		int top = 5;
 		String header = "Charges for The Top "+top+" Journeys";
-		String header2 = "Charges for The Cheapest "+top+" 5 Journeys";
+		String header2 = "Charges for The Cheapest "+top+" Journeys";
 		try{
-			Collections.sort(this.journeys);
+			Collections.sort(this.journeys,Collections.reverseOrder());
 			File file = new File(".\\ranking.txt");
 			if (!file.exists()) {
 				file.createNewFile();
@@ -62,17 +62,20 @@ public class JourneyCollection {
 			Iterator<Journey> i = this.journeys.iterator();
 			int count = 1;
 			writer.write(header);
+			writer.newLine();
 			while(i.hasNext()&& count <=top){
-				writer.write(i.next().toString());
+				writer.write("  "+i.next().toString());
 				writer.newLine();
 				count++;
 			}
-			Collections.sort(this.journeys,Collections.reverseOrder());
+			Collections.sort(this.journeys);
 			i = this.journeys.iterator();
 			count = 1;
+			writer.newLine();
 			writer.write(header2);
+			writer.newLine();
 			while(i.hasNext()&& count <=top){
-				writer.write(i.toString());
+				writer.write("  "+i.next().toString());
 				writer.newLine();
 				count++;
 			}
@@ -103,9 +106,10 @@ public class JourneyCollection {
 			BufferedWriter writer = new BufferedWriter(out);
 			Iterator<Journey> journeyIterator = this.journeys.iterator();
 			writer.write(header);
+			writer.newLine();
 			while(journeyIterator.hasNext()){
 				Journey journey = journeyIterator.next();
-				String key = journey.getTaxi().getLastName().trim()+", "+journey.getTaxi().getLastName();
+				String key = journey.getTaxi().getLastName().trim()+", "+journey.getTaxi().getFirstName();
 				TreeSet<String> destinations = reportData.get(key);
 				if(destinations == null){
 					destinations = new TreeSet<String>();
@@ -119,13 +123,13 @@ public class JourneyCollection {
 			Iterator<String> driverIterator = keys.iterator();
 			while(driverIterator.hasNext()){
 				String driverName = driverIterator.next();
-				writer.write(driverName);
+				writer.write("  "+driverName);
 				writer.newLine();
 				TreeSet<String> destinations = reportData.get(driverName);
 				Iterator<String> destinationIterator = destinations.iterator();
 				while(destinationIterator.hasNext()){
 					String destinationName = destinationIterator.next();
-					writer.write(String.format("%-20s%",destinationName));
+					writer.write("    "+destinationName);
 					writer.newLine();
 				}
 			}
@@ -182,23 +186,23 @@ public class JourneyCollection {
 			writer.newLine();
 			Iterator<String> iterator2015 = set2015.iterator();
 			while(iterator2015.hasNext()){
-				writer.write(iterator2015.next());
+				writer.write("  "+iterator2015.next());
 				writer.newLine();
 			}
-			
+			writer.newLine();
 			writer.write(header2);
 			writer.newLine();
 			Iterator<String> iterator2014 = set2014.iterator();
 			while(iterator2014.hasNext()){
-				writer.write(iterator2014.next());
+				writer.write("  "+iterator2014.next());
 				writer.newLine();
 			}
-			
+			writer.newLine();
 			writer.write(header3);
 			writer.newLine();
 			Iterator<String> iteratorBoth = both20142015.iterator();
 			while(iteratorBoth.hasNext()){
-				writer.write(iteratorBoth.next());
+				writer.write("  "+iteratorBoth.next());
 				writer.newLine();
 			}
 			writer.close();
