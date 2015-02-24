@@ -1,5 +1,11 @@
 package utilities;
-
+/**
+ * A simple custom exception to handle a registration ID format.
+ * This Exception will be throwed when the registration ID is incorrect.
+ * This Exception will be used inside Journey class and Taxi class.
+ * @author Wanchana, Thanaphong
+ *
+ */
 public class InvalidRegistrationFormatException extends Exception{
 
 	/**
