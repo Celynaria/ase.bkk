@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 /**
- * 
- * @author Wonchana
+ * Journey class that will takes
+ * taxi object, destination object, date
+ * and number of passenger. 
+ * @author Wanchana
  *
  */
 public class Journey implements Comparable<Journey>{
@@ -70,18 +73,19 @@ public class Journey implements Comparable<Journey>{
 	}
 	/**
 	 * Calculate the cost of the journey with initial value of £5
-	 * and increase every 5p per kilometre but if the passenger 
+	 * and increase every 5p per kilometer but if the passenger 
 	 * is greater or equal than 4 people the increase rate will be
-	 * £1 per kilometre.
+	 * £1 per kilometer.
 	 */
-	public void feeCalculation(){
-		
+	public void feeCalculation() {
+
 		double init = 5.0;
 		double feePerKilo = 0.5;
 		if(this.getNumberOfPassenger()>= 4){
 			feePerKilo+=0.5;
 		}
 		this.fee = init+(this.destination.getDistance()*feePerKilo);
+		
 	}
 	
 	/**
