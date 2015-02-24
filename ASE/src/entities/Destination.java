@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Class destination that takes destination name
  * and distance in km.
- * @author Wanchana
+ * @author Wanchana, Thanaphong
  * 
  */
 public class Destination {
