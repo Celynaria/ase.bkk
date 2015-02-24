@@ -53,7 +53,7 @@ public class JourneyCollection {
 		String header2 = "Charges for The Cheapest "+top+" 5 Journeys";
 		try{
 			Collections.sort(this.journeys);
-			File file = new File("C:\\ranking.txt");
+			File file = new File(".\\ranking.txt");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -95,7 +95,7 @@ public class JourneyCollection {
 		String header = "Driver's routes";
 		TreeMap<String, TreeSet<String>> reportData = new TreeMap<String, TreeSet<String>>();
 		try{
-			File file = new File("C:\\driver.txt");
+			File file = new File(".\\driver.txt");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -154,7 +154,7 @@ public class JourneyCollection {
 		String header3 = "Places Visited in Both 2014 and 2015";
 		try{
 			Date year2015 = format.parse("01/01/2015");
-			File file = new File("C:\\visited.txt");
+			File file = new File(".\\visited.txt");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
