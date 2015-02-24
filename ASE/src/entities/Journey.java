@@ -17,10 +17,10 @@ import utilities.InvalidRegistrationFormatException;
 import utilities.RegistrationIDNotFoundException;
 import utilities.FeeCalculationException;
 /**
- * Journey class that will takes
- * taxi object, destination object, date
- * and number of passenger. 
- * @author Wanchana
+ * Journey class that will takes taxi object, destination object, date and number of passenger.
+ * This is Main class of Journey contained read() method to read a text file from drive C:
+ * and feeCalculation() method to calculate the fee from number of passenger and distance.
+ * @author Wanchana, Thanaphong
  *
  */
 public class Journey implements Comparable<Journey>{
