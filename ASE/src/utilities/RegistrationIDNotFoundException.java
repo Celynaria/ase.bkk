@@ -24,7 +24,7 @@ public class RegistrationIDNotFoundException extends Exception{
 	}
 
 	public RegistrationIDNotFoundException(String ID) {
-		super("Taxi ID:"+ID+" is not existed in Taxi collection");
+		super("Taxi ID:\""+ID+"\" is not existed in Taxi collection");
 	}
 
 	public RegistrationIDNotFoundException(Throwable arg0) {
