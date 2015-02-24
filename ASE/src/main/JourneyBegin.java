@@ -1,6 +1,10 @@
 package main;
 
-
+/**
+ * Main mehod to run an application.
+ * @author Wanchana
+ *
+ */
 public class JourneyBegin {
 
 	public static void main(String[] args) {
