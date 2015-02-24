@@ -21,9 +21,10 @@ import entities.Destination;
 import entities.Journey;
 import entities.Taxi;
 /**
- * 
- * @author Wonchana
- * @author thanaphong Sontayasara
+ * Journey collection class that
+ * store journey object in array list.
+ * @author Wanchana
+ * @author thanaphong
  *
  */
 public class JourneyCollection {
@@ -152,6 +153,18 @@ public class JourneyCollection {
 		String header = " New Places in 2015";
 		String header2 = " Places Only Visited in 2014";
 		String header3 = "Places Visited in Both 2014 and 2015";
+		/*
+		 * Open the text file called visited.txt and look at
+		 * specific column for the year with dd/mm/yyyy format.
+		 * This code result will give the name of places that
+		 * has been visited by splitting into year 2014 and 2015.
+		 * 
+		 * Before store into TreeSet(sorted in ascending order),
+		 * data got separated into year 2014 and 2015, which will
+		 * be mapped each other in different section by addAll,
+		 * retainAll and removeAll functions.
+		 * 
+		 */
 		try{
 			Date year2015 = format.parse("01/01/2015");
 			File file = new File("C:\\visited.txt");
