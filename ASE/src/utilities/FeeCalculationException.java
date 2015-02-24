@@ -2,7 +2,8 @@ package utilities;
 
 /**
  * Custom Exception for fee calculation method inside Journey class.
- * @author Wanchana
+ * This exception will be throwed if the number of passenger is exceeding the maximum limit(5) or minimum limit(1).
+ * @author Wanchana, Thanaphong
  *
  */
 public class FeeCalculationException extends Exception{
