@@ -1,5 +1,13 @@
 package utilities;
 
+/**
+ * A simple custom exception with custom message. This exception will be throwed if
+ * the application can not find a matched registration ID that were loaded into memory
+ * before processing journey.txt
+ * This Exception will be used inside Journey class.
+ * @author Wanchana, Thanaphong
+ *
+ */
 public class RegistrationIDNotFoundException extends Exception{
 
 	/**
