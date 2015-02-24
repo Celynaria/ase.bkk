@@ -54,6 +54,7 @@ public class Journey implements Comparable<Journey>{
 			throw new ParseException("Date format must be dd/mm/yyyy", e.getErrorOffset());
 		}
 	}
+	public Journey(){}
 	public Taxi getTaxi() {
 		return taxi;
 	}
@@ -88,7 +89,7 @@ public class Journey implements Comparable<Journey>{
 	 * £1 per kilometre.
 	 * @throws FeeCalculationException 
 	 */
-	public void feeCalculation() throws FeeCalculationException{
+	public double feeCalculation() throws FeeCalculationException{
 		
 		double init = 5.0;
 		double feePerKilo = 0.5;
@@ -99,7 +100,7 @@ public class Journey implements Comparable<Journey>{
 		else if(this.getNumberOfPassenger()>= 4){
 			feePerKilo+=0.5;
 		}
-		this.fee = init+(this.destination.getDistance()*feePerKilo);
+		return init+(this.destination.getDistance()*feePerKilo);
 	}
 	
 	/**
@@ -136,7 +137,7 @@ public class Journey implements Comparable<Journey>{
 					if(taxi != null){
 						if(destination!=null){
 							journey = new Journey(taxi,destination ,columns[3], new Integer(columns[2]).intValue());
-							journey.feeCalculation();
+							journey.setFee(journey.feeCalculation());
 							journeys.add(journey);
 						}else{
 							throw new DestinationNotFoundException(destinationName);

@@ -27,8 +27,7 @@ public class Destination {
 		this.name = name;
 		this.distance = distance;
 	}
-
-	
+	public Destination(){}
 	public String getName() {
 		return name;
 	}
