@@ -116,7 +116,7 @@ public class Journey implements Comparable<Journey>{
 	 * @return journeys
 	 */
 	public static List<Journey> read(Map<String, Destination> destinations, Map<String, Taxi> taxies) {
-		String fileName = "C:\\journey.txt";
+		String fileName = ".\\journey.txt";
 		String line = new String();
 		String registrationID = new String();
 		String destinationName = new String();

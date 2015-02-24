@@ -53,7 +53,7 @@ public class Destination {
 	 * @return destinations 
 	 */
 	public static Map<String, Destination> read(){
-		String fileName = "C:\\destination.txt";
+		String fileName = ".\\destination.txt";
 		String line = new String();
 		Map<String, Destination> destinations = new HashMap<String, Destination>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName));)

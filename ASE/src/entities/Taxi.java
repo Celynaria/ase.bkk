@@ -64,7 +64,7 @@ public class Taxi {
 	 * @return taxis
 	 */
 	public static Map<String, Taxi> read(){
-		String fileName = "C:\\taxi.txt";
+		String fileName = ".\\taxi.txt";
 		String line = new String();
 		Map<String, Taxi> taxis = new HashMap<String, Taxi>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName));)
