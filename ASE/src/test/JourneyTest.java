@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,13 @@ import utilities.FeeCalculationException;
 import entities.Destination;
 import entities.Journey;
 
+/**
+ * Simple unit test for checking Journey.feeCalculation() method inside Journey class.
+ * This test will expected return value from Journey.feeCalculation() method to be the same as a prepareData() method
+ * inside this test case.
+ * @author Wanchana, Thanaphong
+ *
+ */
 public class JourneyTest {
 	private List<double[]> inputList = new ArrayList<double[]>();
 	@Before
@@ -37,7 +45,7 @@ public class JourneyTest {
 			double[] input = i.next();
 			journey.setNumberOfPassenger(Integer.parseInt(Double.toString(input[0])));
 			try {
-				assertEquals(input[1], journey.feeCalculation());
+				Assert.assertEquals(input[1], journey.feeCalculation());
 			} catch (FeeCalculationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
