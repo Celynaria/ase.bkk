@@ -18,7 +18,7 @@ public class Taxi {
 	private String registrationID;
 	private String firstName;
 	private String lastName;
-	private int maximumPassenger;
+	public static final int maximumPassenger = 5;
 	
 	/**
 	 * Constructor that will takes three arguments
@@ -32,7 +32,6 @@ public class Taxi {
 	 */
 	public Taxi(String registrationID, String firstName, String lastName) {
 		this.registrationID = registrationID;
-		this.maximumPassenger = 5;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -54,12 +53,6 @@ public class Taxi {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public int getMaximumPassenger() {
-		return maximumPassenger;
-	}
-	public void setMaximumPassenger(int maximumPassenger) {
-		this.maximumPassenger = maximumPassenger;
 	}
 	
 	/**
