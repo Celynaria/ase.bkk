@@ -9,8 +9,9 @@ import java.util.Map;
 
 import utilities.InvalidRegistrationFormatException;
 /**
- * 
- * @author Wonchana
+ * Main calss of Taxi contained read() method to read a text file from drive C:
+ * and registrationIDChecker() method to check registration ID format.
+ * @author Wanchana, Thanaphong
  *
  */
 public class Taxi {
@@ -85,7 +86,6 @@ public class Taxi {
 	/**
 	 * Method for checking the registration format.
 	 * @param registrationID
-	 * @return
 	 * @throws InvalidRegistrationFormatException 
 	 */
 	public static void registrationIDChecker(String registrationID) throws InvalidRegistrationFormatException{
