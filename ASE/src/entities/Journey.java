@@ -1,8 +1,9 @@
 package entities;
 
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +11,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import utilities.InvalidRegistrationFormatException;
+import utilities.RegistrationIDNotFoundException;
+import utilities.FeeCalculationException;
 /**
- * 
- * @author Wonchana
+ * Journey class that will takes
+ * taxi object, destination object, date
+ * and number of passenger. 
+ * @author Wanchana
  *
  */
 public class Journey implements Comparable<Journey>{
@@ -31,12 +38,20 @@ public class Journey implements Comparable<Journey>{
 	 * @param destination
 	 * @param date
 	 * @param numberOfPassenger
+	 * @throws ParseException 
 	 */
-	public Journey(Taxi taxi, Destination destination, Date date,int numberOfPassenger) {
-		this.taxi = taxi;
-		this.destination = destination;
-		this.date = date;
-		this.numberOfPassenger = numberOfPassenger;
+	public Journey(Taxi taxi, Destination destination, String date,int numberOfPassenger) throws ParseException {
+		DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+		Date journeyDate;
+		try {
+			journeyDate = format.parse(date);
+			this.taxi = taxi;
+			this.destination = destination;
+			this.date = journeyDate;
+			this.numberOfPassenger = numberOfPassenger;
+		} catch (ParseException e) {
+			throw new ParseException("Date format must be dd/mm/yyyy", e.getErrorOffset());
+		}
 	}
 	public Taxi getTaxi() {
 		return taxi;
@@ -59,9 +74,6 @@ public class Journey implements Comparable<Journey>{
 	public Date getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public int getNumberOfPassenger() {
 		return numberOfPassenger;
 	}
@@ -73,12 +85,17 @@ public class Journey implements Comparable<Journey>{
 	 * and increase every 5p per kilometre but if the passenger 
 	 * is greater or equal than 4 people the increase rate will be
 	 * £1 per kilometre.
+	 * @throws FeeCalculationException 
 	 */
-	public void feeCalculation(){
+	public void feeCalculation() throws FeeCalculationException{
 		
 		double init = 5.0;
 		double feePerKilo = 0.5;
-		if(this.getNumberOfPassenger()>= 4){
+		
+		if(this.getNumberOfPassenger()<=0 || this.getNumberOfPassenger()>5){
+			throw new FeeCalculationException("The number of passenger must be > 0 or <= 5.");
+		}
+		else if(this.getNumberOfPassenger()>= 4){
 			feePerKilo+=0.5;
 		}
 		this.fee = init+(this.destination.getDistance()*feePerKilo);
@@ -97,22 +114,48 @@ public class Journey implements Comparable<Journey>{
 	 * @return journeys
 	 */
 	public static List<Journey> read(Map<String, Destination> destinations, Map<String, Taxi> taxies) {
+		String fileName = "C:\\journey.txt";
 		String line = new String();
-		DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
 		String registrationID = new String();
 		List<Journey> journeys = new ArrayList<Journey>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("C:\\journey.txt"));)
-		{	
+		int failed = 0;
+		try{
+			LineNumberReader reader = new LineNumberReader(new FileReader(fileName));
 			while((line = reader.readLine())!=null){
 				line = line.trim();
 				String[] columns = line.split(",");
-				registrationID = columns[0];
-				Date journeyDate = format.parse(columns[3]);
-				Journey journey = new Journey(taxies.get(registrationID), destinations.get(columns[1]),journeyDate, new Integer(columns[2]).intValue());
-				journey.feeCalculation();
-				journeys.add(journey);
+				Journey journey;
+				try {
+					registrationID = columns[0];
+					Taxi.registrationIDChecker(registrationID);
+					Taxi taxi = taxies.get(registrationID);
+					if(taxi != null){
+						journey = new Journey(taxi, destinations.get(columns[1]),columns[3], new Integer(columns[2]).intValue());
+						journey.feeCalculation();
+						journeys.add(journey);
+					}else{
+						throw new RegistrationIDNotFoundException(registrationID);
+					}
+				} catch (ParseException e) {
+					failed = failed + 1;
+					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
+				} catch (InvalidRegistrationFormatException e) {
+					failed = failed + 1;
+					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
+				} catch (RegistrationIDNotFoundException e){
+					failed = failed + 1;
+					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
+				} catch (FeeCalculationException e){
+					failed = failed + 1;
+					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
+				}
 			}
-		} catch (IOException | NumberFormatException | ParseException e){
+			System.out.println(failed+" Journeys are skipped due to the ploblems with raw data.");
+			System.out.println(journeys.size()+" Journeys are succesfully loaded.");
+			reader.close();
+		} catch (FileNotFoundException e){
+			e.printStackTrace();
+		} catch (IOException e){
 			e.printStackTrace();
 		}
 		return journeys;

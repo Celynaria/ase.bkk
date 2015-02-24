@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,9 +54,10 @@ public class Destination {
 	 * @return destinations 
 	 */
 	public static Map<String, Destination> read(){
+		String fileName = "C:\\destination.txt";
 		String line = new String();
 		Map<String, Destination> destinations = new HashMap<String, Destination>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("C:\\destination.txt"));)
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName));)
 		{	
 			while((line = reader.readLine())!=null){
 				line = line.trim();
@@ -63,9 +65,13 @@ public class Destination {
 				Double distance = new Double(columns[1]);
 				destinations.put(columns[0], new Destination(columns[0], distance));
 			}
-		} catch (IOException e){
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Can not find "+fileName+" file.");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return destinations;
 	}
 }

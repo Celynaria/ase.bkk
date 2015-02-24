@@ -1,6 +1,5 @@
 package main;
 
-import utilities.JourneyCollection;
 
 public class JourneyBegin {
 

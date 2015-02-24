@@ -1,10 +1,14 @@
 package entities;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import utilities.InvalidRegistrationFormatException;
 /**
  * 
  * @author Wonchana
@@ -33,6 +37,7 @@ public class Taxi {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	public Taxi(){}
 	public String getRegistrationID() {
 		return registrationID;
 	}
@@ -66,9 +71,10 @@ public class Taxi {
 	 * @return taxis
 	 */
 	public static Map<String, Taxi> read(){
+		String fileName = "C:\\taxi.txt";
 		String line = new String();
 		Map<String, Taxi> taxis = new HashMap<String, Taxi>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("C:\\taxi.txt"));)
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName));)
 		{	
 			while((line = reader.readLine())!=null){
 				line = line.trim();
@@ -76,6 +82,8 @@ public class Taxi {
 				Taxi taxi = new Taxi(columns[0],columns[1],columns[2]);
 				taxis.put(columns[0], taxi);
 			}
+		} catch (FileNotFoundException e){
+			System.err.println("Can not find "+fileName+" file.");
 		} catch (IOException e){
 			e.printStackTrace();
 		}
@@ -86,8 +94,14 @@ public class Taxi {
 	 * Method for checking the registration format.
 	 * @param registrationID
 	 * @return
+	 * @throws InvalidRegistrationFormatException 
 	 */
-	public static boolean registrationIDChecker(String registrationID){
-		return false;
+	public static void registrationIDChecker(String registrationID) throws InvalidRegistrationFormatException{
+		String reg = registrationID.trim();
+		if(reg.length()!=8){
+			throw new InvalidRegistrationFormatException("The length of RegistrationID must be 8 digits");
+		}else if(!reg.matches("BKK[A-Z]{2}[0-9]{3}")){
+			throw new InvalidRegistrationFormatException("RegistrationID must start with \"BKK\" and follow by 2 capital chacraters and end with 3 digits number.");
+		}
 	}
 }

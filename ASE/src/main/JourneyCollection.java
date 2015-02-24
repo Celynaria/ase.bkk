@@ -1,4 +1,4 @@
-package utilities;
+package main;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -49,8 +49,8 @@ public class JourneyCollection {
 	public boolean rankingReport(){
 		boolean valid = true;
 		int top = 5;
-		String header = "Charges for The Top 5 Journeys";
-		String header2 = "Charges for The Cheapest 5 Journeys";
+		String header = "Charges for The Top "+top+" Journeys";
+		String header2 = "Charges for The Cheapest "+top+" 5 Journeys";
 		try{
 			Collections.sort(this.journeys);
 			File file = new File("C:\\ranking.txt");
