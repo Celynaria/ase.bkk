@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import utilities.feeCalculationException;
+
 /**
  * Journey class that will takes
  * taxi object, destination object, date
@@ -76,17 +78,23 @@ public class Journey implements Comparable<Journey>{
 	 * and increase every 5p per kilometer but if the passenger 
 	 * is greater or equal than 4 people the increase rate will be
 	 * £1 per kilometer.
+	 * @throws feeCalculationException 
 	 */
-	public void feeCalculation() {
+	public void feeCalculation() throws feeCalculationException {
 
 		double init = 5.0;
 		double feePerKilo = 0.5;
-		if(this.getNumberOfPassenger()>= 4){
+		
+		if(this.getNumberOfPassenger()<=0 || this.getNumberOfPassenger()>5){
+			throw new feeCalculationException("The number of passenger must be > 0 or <= 5.");
+		}
+		else if(this.getNumberOfPassenger()>= 4){
 			feePerKilo+=0.5;
 		}
 		this.fee = init+(this.destination.getDistance()*feePerKilo);
-		
 	}
+
+	
 	
 	/**
 	 * This method will read journey text file
