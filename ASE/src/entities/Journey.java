@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import utilities.DestinationNotFoundException;
 import utilities.InvalidRegistrationFormatException;
 import utilities.RegistrationIDNotFoundException;
 import utilities.FeeCalculationException;
@@ -129,10 +130,15 @@ public class Journey implements Comparable<Journey>{
 					registrationID = columns[0];
 					Taxi.registrationIDChecker(registrationID);
 					Taxi taxi = taxies.get(registrationID);
+					Destination destination = destinations.get(columns[1]);
 					if(taxi != null){
-						journey = new Journey(taxi, destinations.get(columns[1]),columns[3], new Integer(columns[2]).intValue());
-						journey.feeCalculation();
-						journeys.add(journey);
+						if(destination!=null){
+							journey = new Journey(taxi,destination ,columns[3], new Integer(columns[2]).intValue());
+							journey.feeCalculation();
+							journeys.add(journey);
+						}else{
+							throw new DestinationNotFoundException(registrationID);
+						}
 					}else{
 						throw new RegistrationIDNotFoundException(registrationID);
 					}
@@ -148,13 +154,16 @@ public class Journey implements Comparable<Journey>{
 				} catch (FeeCalculationException e){
 					failed = failed + 1;
 					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
+				} catch (DestinationNotFoundException e) {
+					failed = failed + 1;
+					System.err.println("Line "+reader.getLineNumber()+" is skipped:[Reason]"+e.getMessage());
 				}
 			}
 			System.out.println(failed+" Journeys are skipped due to the ploblems with raw data.");
 			System.out.println(journeys.size()+" Journeys are succesfully loaded.");
 			reader.close();
 		} catch (FileNotFoundException e){
-			e.printStackTrace();
+			System.err.println("Can not find "+fileName+" file.");
 		} catch (IOException e){
 			e.printStackTrace();
 		}
