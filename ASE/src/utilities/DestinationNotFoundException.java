@@ -1,5 +1,11 @@
 package utilities;
-
+/**
+ * Simple custom exception with custom message. This exception will be throwed if the application
+ * can not find matched destinations that were loaded into memory before processing journey.txt.
+ * This exception will be used in Journey class.
+ * @author Wanchana, Thanaphong
+ *
+ */
 public class DestinationNotFoundException extends Exception{
 
 	/**
