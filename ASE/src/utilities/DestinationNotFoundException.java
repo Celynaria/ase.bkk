@@ -23,9 +23,8 @@ public class DestinationNotFoundException extends Exception{
 		// TODO Auto-generated constructor stub
 	}
 
-	public DestinationNotFoundException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
+	public DestinationNotFoundException(String destination) {
+		super("Destination Name:\""+destination+"\" is not existed in Destnation collection");
 	}
 
 	public DestinationNotFoundException(Throwable cause) {
